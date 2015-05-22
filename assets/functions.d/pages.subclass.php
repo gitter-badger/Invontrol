@@ -112,5 +112,57 @@ SQL;
 		));
 
 	}
+	public function GenerateEditMenu() {
+			global $db;
+			$query = <<<SQL
+			SELECT id,title,body,position
+			FROM inv_pages
+			WHERE id = :getid
+SQL;
+			$resource = $db->db->prepare( $query );
+			$resource->execute( array (
+			':getid'	=> $_GET['id'],
+			));
+			foreach($resource as $row){
+		?>
+		<table>
+		<tr><td><h4>Title</h4></td><td><h4>Menu Location</h4></td></tr>	
+			<input type="hidden" name="id" id="id" value="<?php echo $row['id']; ?>">
+		<tr><td><input type="text" id="title" name="title" value="<?php echo $row['title']; ?>"></td>
+		<td><input type="text" id="menu_location" name="menu_location" value="<?php echo $row['position']; ?>" ></td>
+		<td>Enabled<input type="checkbox" name="enabled" id="enabled" checked></td>
+		<td><img src="<?php echo HOST_URL; ?>/admin/modules/doowop_menu/media/images/Drives/Floppy.png" id="save">
+		
+		</td>
+		</tr>
+		</table>
+		<h4>Details</h4>
+		<textarea class="ckeditor" name="details"><?php echo $row['body']; ?></textarea>
+		<script src="<?php echo HOST_URL; ?>/admin/modules/doowop_menu/media/ckeditor/ckeditor.js"></script>
+		<?php
+			}
+	}
+	public function EditPage() {
+		if(isset($_POST['enabled'])){
+			$enabled = '1';
+		}
+		else {
+			$enabled = '0';
+		}
+		global $db;
+		$query = <<<SQL
+		UPDATE inv_pages
+		SET title = :title, position = :menu_location, enabled = :enabled, body = :details
+		WHERE id = :id
+SQL;
+		$resource = $db->db->prepare( $query );
+		$resource->execute( array (
+		':title'	=> $_POST['title'],
+		':menu_location'	=> $_POST['menu_location'],
+		':enabled'	=> $enabled,
+		':details'	=> $_POST['details'],
+		':id'	=> $_POST['id'],
+		));
+	}
 }
 $pages = new pages();

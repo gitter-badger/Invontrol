@@ -53,22 +53,10 @@
 		<div id="status" style="display:none;width:60%;background-color:blue;height:50px;margin:5px;border-style:solid;
 		border-radius:5px; margin-left:auto;margin-right:auto;"></div>
 		<div style="float:left">
-		<form id="createItem">
+		<form id="updatePage">
 		
-		<input type="hidden" id="process" name="process" value="createItem">
-		<table>
-		<tr><td><h4>Name</h4></td><td><h4>Price</h4></td></tr>		
-		<tr><td><input type="text" id="name" name="name"></td>
-		<td><input type="text" id="price" name="price" ></td>
-		<td>Enabled<input type="checkbox" name="enabled" id="enabled" checked></td>
-		<td><img src="<?php echo HOST_URL; ?>/admin/modules/doowop_menu/media/images/Drives/Floppy.png" id="save">
-		<img src="<?php echo HOST_URL; ?>/admin/modules/doowop_menu/media/images/Desktop/RecycleBin_Empty.png" id="delete">
-		</td>
-		</tr>
-		</table>
-		<h4>Details</h4>
-		<textarea class="ckeditor" name="details"></textarea>
-		<script src="<?php echo HOST_URL; ?>/admin/modules/doowop_menu/media/ckeditor/ckeditor.js"></script>
+		<input type="hidden" id="process" name="process" value="updatePage">
+		<?php $pages->GenerateEditMenu(); ?>
 		</form>
 		</div>
 		<div style="float:left">
