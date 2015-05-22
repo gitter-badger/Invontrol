@@ -30,3 +30,9 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
 function LoadSite() {
 	require_once(base_.'/index.php');
 }
+function selfURL() 
+{ 
+	$protoreplace = array('1','.','/');
+	$protocol = str_replace($protoreplace,"",$_SERVER['SERVER_PROTOCOL']).'://';
+	return $protocol.''.$_SERVER['SERVER_NAME'].''.$_SERVER['REQUEST_URI'];
+} 

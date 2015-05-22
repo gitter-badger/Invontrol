@@ -63,5 +63,20 @@ SQL;
 			include_once(adminmodules_.''.$row['path'].'/viewModule.php');
 		}
 	}
+	function LoadPlugins() {
+		global $db;
+		$query = <<<SQL
+		SELECT path
+		FROM inv_plugins
+		WHERE enabled = :true
+SQL;
+		$resource = $db->db->prepare( $query );
+		$resource->execute( array (
+		':true'	=> 1,
+		));
+		foreach($resource as $row){
+			include_once(plugins_.''.$row['path'].'/functions.php');
+		}
+	}
 }
 $modules = new modules();
