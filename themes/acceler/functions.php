@@ -62,6 +62,20 @@ SQL;
 			}
 		}
 	}
-	function test() {
-		echo "Function is Called";
+	function acceler_footer_4() {
+		global $db;
+		$query = <<<SQL
+		SELECT path
+		FROM inv_modules
+		WHERE enabled = :true
+		AND pos = :footer_4
+SQL;
+		$resource = $db->db->prepare( $query);
+		$resource->execute( array (
+		':true'	=> '1',
+		':footer_4'	=> 'footer_4',
+		));
+		foreach($resource as $row){
+			require_once(modules_.''.$row['path'].'/index.php');
+		}
 	}

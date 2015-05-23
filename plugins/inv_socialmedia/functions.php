@@ -284,34 +284,93 @@ img,a {
     border-radius: 5px;
     cursor: pointer;
 }
-</style><script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+</style>
+<!--Facebook Data-->
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
 <script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
 <script type="text/javascript">jQuery(document).ready(function(){ jQuery("#facebook_right").hover(function(){ jQuery(this).stop(true,false).animate({right:  0}, 500); },function(){ jQuery("#facebook_right").stop(true,false).animate({right: -200}, 500); });    jQuery("#twitter_right").hover(function(){ jQuery(this).stop(true,false).animate({right:  0}, 500); },function(){ jQuery("#twitter_right").stop(true,false).animate({right: -250}, 500); });     jQuery("#google_plus_right").hover(function(){ jQuery(this).stop(true,false).animate({right:  0}, 500); },function(){ jQuery("#google_plus_right").stop(true,false).animate({right: -154}, 500); });    jQuery("#feedburner_right").hover(function(){ jQuery(this).stop(true,false).animate({right:  0}, 500); },function(){ jQuery("#feedburner_right").stop(true,false).animate({right: -303}, 500); });    });</script>
+<?php 
+function inv_socialMediaFacebook() {
+	global $db;
+	$query = <<<SQL
+	SELECT script 
+	FROM inv_socialmedia
+	WHERE name = :facebook
+	AND enabled = :true
+SQL;
+	$resource = $db->db->prepare( $query );
+	$resource->execute( array (
+	':facebook'	=> 'Facebook',
+	':true'	=> '1',
+	));
+	
+	if($resource->rowCount() < 1 ){
+	}
+	else{
+		foreach($resource as $row) {
+			?>
 <div id="on">
  <div id="facebook_right" style="top: 18%;">
  <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=307601162757869";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-  <div id="facebook_div">
-   <img src="http://4.bp.blogspot.com/-pzM3IebaPHg/T3BF_Cp5ChI/AAAAAAAABTA/uPlhRvqJF2Y/s1600/helperblogger.com-facebook-icon.png" alt=""/>
-   <div class="fb-page" data-href="https://www.facebook.com/pages/Invontrol-CMS/1580135868922227" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/pages/Invontrol-CMS/1580135868922227"><a href="https://www.facebook.com/pages/Invontrol-CMS/1580135868922227">Invontrol CMS</a></blockquote></div></div>
-  </div>
+
+  <?php echo $row['script']; ?>
  </div>
 </div>
-<div id="on">
+		<?php } 
+	}
+}
+function inv_socialMediaTwitter(){
+	global $db;
+	$query = <<<SQL
+	SELECT script
+	FROM inv_socialmedia
+	WHERE enabled = :true
+	AND name = :twitter
+SQL;
+	$resource = $db->db->prepare( $query );
+	$resource->execute( array (
+	':true'	=> '1',
+	':twitter' => 'Twitter',
+	));
+	if($resource->rowCount()<1){
+		
+	}
+	else{
+		foreach($resource as $row){
+			?>
+			<div id="on">
  <div id="twitter_right" style="top: 35%;">
   <div id="twitter_div">
    <img id="twitter_right_img" src="http://2.bp.blogspot.com/-DoXgccAh568/T3BGBaBhUUI/AAAAAAAABTY/apMnhTjbnnU/s1600/helperblogger.com-twitter-icon.png"/>
    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
-   <script>new TWTR.Widget({version: 2,type: 'profile',rpp: 4,interval: 1000,width: 246,height: 265,theme: {shell: {background: '#63BEFD',color: '#FFFFFF'},tweets: {background: '#FFFFFF',color: '#000000',links: '#47a61e'}},features: { loop: false,live: true,scrollbar: false,hashtags: false,timestamp: true,avatars: true,behavior: 'all' }}).render().setUser('helperblogger').start();</script>
-  </div>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+   <?php echo $row['script']; ?>
+   </div>
  </div>
 </div>
+			<?php
+		}
+	}
+}?>
+<?php inv_socialMediaFacebook(); 
+	  inv_socialMediaTwitter();
+	  ?>
+
 <div id="on">
  <div id="google_plus_right" style="top: 52%;">
   <div id="google_plus_div">
