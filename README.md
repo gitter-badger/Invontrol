@@ -2,6 +2,8 @@
   <content><![CDATA[
 # ${1:Invontrol CMS}
 
+[![Join the chat at https://gitter.im/DoxramosDev/Invontrol](https://badges.gitter.im/DoxramosDev/Invontrol.svg)](https://gitter.im/DoxramosDev/Invontrol?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 TODO: Write a project description
 
 ## Installation
